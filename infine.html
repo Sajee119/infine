@@ -1,0 +1,2726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infine Selections</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            font-family: 'Montserrat', sans-serif; /* Stylish font */
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+
+        /* Section Visibility */
+        section {
+            display: none; 
+        }
+        section.active {
+            display: block;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #2b2e33; /* Dark background similar to footer */
+            color: #ffdd57; /* Bright text color for contrast */
+            padding: 20px;
+            text-align: center;
+            border-bottom: 4px solid #ffdd57; /* Bottom border for emphasis */
+        }
+
+        header h1 {
+            font-family: 'Papyrus', fantasy; /* Custom font */
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center; /* Center the navigation items */
+            gap: 20px; /* Space between navigation items */
+        }
+
+        nav ul li {
+            margin: 0; /* No margin for list items */
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #ffdd57; /* Same bright color as the header text */
+            font-weight: 500; /* Medium font weight */
+            padding: 8px 12px; /* Padding for a button-like feel */
+            border-radius: 5px; /* Rounded corners */
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition effects */
+        }
+
+        nav ul li a:hover {
+            background-color: #ffdd57; /* Highlight background on hover */
+            color: #2b2e33; /* Dark text color on hover */
+        }
+
+        /* Media Queries for responsiveness */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2em; /* Smaller font size on mobile */
+            }
+
+            nav ul {
+                flex-direction: column; /* Stack navigation items vertically */
+            }
+
+            nav ul li {
+                margin: 5px 0; /* Space between items */
+            }
+        }
+
+        /* General styles for the guest home section */
+        #guest-home {
+            background-color: #f4f4f4; /* Light background color */
+            padding: 20px; /* Padding for the section */
+            border-radius: 8px; /* Rounded corners for the section */
+            margin: 20px; /* Margin for spacing around the section */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+        #home {
+            background-color: #f4f4f4; /* Light background color */
+            padding: 20px; /* Padding for the section */
+            border-radius: 8px; /* Rounded corners for the section */
+            margin: 20px; /* Margin for spacing around the section */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+        /* Welcome section styles */
+        .welcome {
+            background-color: #ffffff; /* White background for welcome section */
+            border-radius: 8px; /* Rounded corners */
+            padding: 20px; /* Padding inside the section */
+            margin-bottom: 20px; /* Margin below the section */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        .welcome h1 {
+            font-size: 2.5em; /* Large heading */
+            color: #2b2e33; /* Dark color for text */
+            margin-bottom: 10px; /* Space below the heading */
+        }
+
+        .welcome p {
+            font-size: 1.2em; /* Slightly larger text for the paragraph */
+            color: #555; /* Medium gray for the text */
+        }
+
+        /* Featured products section styles */
+        .featured-products h2 {
+            font-size: 2em; /* Heading size */
+            color: #2b2e33; /* Dark color for text */
+            margin-bottom: 15px; /* Space below the heading */
+        }
+
+        /* Container for featured products */
+        .home-product {
+            display: flex; /* Use flexbox for layout */
+            flex-wrap: wrap; /* Allow wrapping of items */
+            justify-content: space-around; /* Space items evenly */
+        }
+
+        /* Newsletter section styles */
+        .newsletter {
+            background-color: #ffffff; /* White background for newsletter section */
+            border-radius: 8px; /* Rounded corners */
+            padding: 20px; /* Padding inside the section */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        .newsletter h2 {
+            font-size: 2em; /* Heading size */
+            color: #2b2e33; /* Dark color for text */
+            margin-bottom: 15px; /* Space below the heading */
+        }
+
+        .newsletter-form {
+            display: flex; /* Flex layout for form */
+            gap: 10px; /* Space between input and button */
+        }
+
+        .newsletter-form input[type="email"] {
+            padding: 10px; /* Padding for input */
+            border: 1px solid #ccc; /* Light border */
+            border-radius: 5px; /* Rounded corners */
+            flex: 1; /* Allow input to take available space */
+        }
+
+        .newsletter-form button {
+            padding: 10px 20px; /* Padding for button */
+            background-color: #ffdd57; /* Button color */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            color: #2b2e33; /* Dark text color */
+            font-weight: bold; /* Bold text */
+            cursor: pointer; /* Pointer on hover */
+            transition: background-color 0.3s; /* Transition effect */
+        }
+
+        .newsletter-form button:hover {
+            background-color: #e6c54c; /* Darken button on hover */
+        }
+
+        /* Responsive styles */
+        @media (max-width: 600px) {
+            .welcome h1 {
+                font-size: 2em; /* Smaller heading on mobile */
+            }
+
+            .welcome p,
+            .featured-products h2,
+            .newsletter h2 {
+                font-size: 1.5em; /* Adjusted font size */
+            }
+
+            .newsletter-form {
+                flex-direction: column; /* Stack input and button */
+            }
+
+            .newsletter-form input[type="email"] {
+                margin-bottom: 10px; /* Space below input on mobile */
+            }
+        }
+
+
+
+        /* Container for all products */
+        #all-products-list-guest {
+            display: flex; /* Use flexbox for layout */
+            flex-wrap: wrap; /* Allow wrapping of items */
+            justify-content: space-around; /* Space items evenly */
+        }
+
+        #guest-products {
+            background-color: #f4f4f4; /* Light background for contrast */
+            border-radius: 8px; /* Rounded corners */
+            padding: 20px; /* Padding for spacing */
+            margin: 20px 0; /* Vertical margin between sections */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+        #guest-products h2 {
+            text-align: center;
+            font-size: 2em; /* Heading size */
+            color: #2b2e33; /* Dark color for text */
+            margin-bottom: 15px; /* Space below the heading */
+        }
+        /* Individual product card styling */
+        .product {
+            background-color: #ffffff; /* White background for product card */
+            border: 1px solid #ddd; /* Light border */
+            border-radius: 8px; /* Rounded corners */
+            padding: 15px; /* Padding inside the card */
+            margin: 10px; /* Margin around each card */
+            text-align: center; /* Center text */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            transition: transform 0.3s; /* Transition for hover effect */
+            width: calc(30% - 20px); /* Responsive width for product cards */
+        }
+
+        .product:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+        }
+
+        /* Product image styling */
+        .product img {
+            max-width: 100%; /* Responsive image */
+            height: 350px; /* Maintain aspect ratio */
+            border-radius: 5px; /* Rounded corners for images */
+        }
+
+        /* Product name styling */
+        .product h3 {
+            font-size: 1.5em; /* Size of the product name */
+            color: #2b2e33; /* Dark color for text */
+            margin: 10px 0; /* Space above and below the name */
+        }
+
+        /* Price styling */
+        .product .price {
+            font-size: 1.2em; /* Font size for price */
+            color: #ff6f00; /* Color for price */
+            font-weight: bold; /* Bold text for emphasis */
+            margin: 10px 0; /* Space above and below the price */
+        }
+
+        /* Button styling */
+        .product button {
+            padding: 10px 15px; /* Padding for button */
+            background-color: #ffdd57; /* Button color */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            color: #2b2e33; /* Dark text color */
+            font-weight: bold; /* Bold text */
+            cursor: pointer; /* Pointer on hover */
+            transition: background-color 0.3s; /* Transition effect */
+        }
+
+        .product button:hover {
+            background-color: #e6c54c; /* Darken button on hover */
+        }
+
+        /* Responsive styles */
+        @media (max-width: 900px) {
+            .product {
+                width: calc(45% - 20px); /* Two products per row on medium screens */
+            }
+        }
+
+        @media (max-width: 600px) {
+            .product {
+                width: calc(100% - 20px); /* Full width on small screens */
+            }
+        }
+
+        /* General styles for the guest offers section */
+        #guest-offers {
+            background-color: #f9f9f9; /* Light background color */
+            padding: 20px; /* Padding for the section */
+            border-radius: 8px; /* Rounded corners for the section */
+            margin: 20px; /* Margin for spacing around the section */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+        /* Title styles */
+        #guest-offers h1 {
+            font-size: 2.5em; /* Large heading */
+            color: #2b2e33; /* Dark color for text */
+            margin-bottom: 20px; /* Space below the heading */
+            text-align: center; /* Center the heading */
+        }
+
+        #offers {
+            background-color: #f9f9f9; /* Light background color */
+            padding: 20px; /* Padding for the section */
+            border-radius: 8px; /* Rounded corners for the section */
+            margin: 20px; /* Margin for spacing around the section */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+        /* Title styles */
+        #offers h1 {
+            font-size: 2.5em; /* Large heading */
+            color: #2b2e33; /* Dark color for text */
+            margin-bottom: 20px; /* Space below the heading */
+            text-align: center; /* Center the heading */
+        }
+
+        /* Offers list styles */
+        #offers-list {
+            display: flex; /* Use flexbox for layout */
+            flex-direction: column; /* Stack offers vertically */
+            gap: 15px; /* Space between each offer */
+        }
+
+        /* Individual offer styles */
+        .offer {
+            background-color: #ffffff; /* White background for each offer */
+            border: 1px solid #ddd; /* Light border */
+            border-radius: 8px; /* Rounded corners */
+            padding: 15px; /* Padding inside the offer */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            transition: transform 0.3s; /* Transition for hover effect */
+        }
+
+        .offer:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+        }
+
+        /* Offer title styles */
+        .offer h3 {
+            font-size: 1.8em; /* Size of the offer title */
+            color: #ff6f00; /* Color for offer title */
+            margin-bottom: 10px; /* Space below the title */
+        }
+
+        /* Offer description styles */
+        .offer p {
+            font-size: 1.1em; /* Size of the offer description */
+            color: #555; /* Medium gray for description text */
+            margin-bottom: 10px; /* Space below the description */
+        }
+
+        /* Validity date styles */
+        .offer span {
+            font-size: 0.9em; /* Font size for validity date */
+            color: #999; /* Light gray for the date */
+        }
+
+        /* Responsive styles */
+        @media (max-width: 600px) {
+            #guest-offers h1 {
+                font-size: 2em; /* Smaller heading on mobile */
+            }
+
+            .offer h3 {
+                font-size: 1.5em; /* Smaller title on mobile */
+            }
+
+            .offer p {
+                font-size: 1em; /* Smaller description on mobile */
+            }
+        }
+
+        /* cart icon */
+        .cart {
+            position: fixed;
+            bottom: 15px;
+            right: -15px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        .cart-icon {
+            width: 40px;
+            height: auto;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .count {
+            left: -25px;
+            bottom: -15px;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: #ff1900;
+            font-weight: bold;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            font-size: 0.9em;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #2b2e33; /* Dark background for a modern look */
+            color: #e1e1e1; /* Light text color for contrast */
+            padding: 20px;
+            width: 100%;
+            border-top: 4px solid #ffdd57; /* Distinctive top border */
+        }
+
+        /* Footer content container */
+        .footer-content {
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center content */
+            text-align: center;
+        }
+
+        /* Footer line styling */
+        .footer-line {
+            margin-bottom: 10px; /* Space between copyright and social links */
+        }
+
+        .footer-line p {
+            margin: 0; /* Remove default margin */
+            font-size: 14px; /* Font size for copyright */
+        }
+
+        /* Social links container */
+        .social-links {
+            display: flex; /* Flex container for social links */
+            gap: 15px; /* Space between links */
+        }
+
+        /* Styling for social links */
+        .social-links a {
+            color: #ffdd57; /* Bright color for links */
+            text-decoration: none;
+            font-weight: 500; /* Medium weight for emphasis */
+            padding: 8px 12px; /* Padding for better click area */
+            border-radius: 5px; /* Rounded corners for a button effect */
+            transition: background-color 0.3s, color 0.3s; /* Transition for hover effects */
+        }
+
+        .social-links a:hover {
+            background-color: #ffdd57; /* Highlight background on hover */
+            color: #2b2e33; /* Dark text color on hover */
+        }
+
+        /* Media Queries for larger screens */
+        @media (min-width: 600px) {
+            .footer-content {
+                flex-direction: column; /* Keep column layout on larger screens */
+                align-items: center; /* Center items in a column */
+            }
+
+            .social-links {
+                justify-content: center; /* Center social links */
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener("contextmenu", function (e) {
+            e.preventDefault();
+        });
+    
+        document.addEventListener("keydown", function (e) {
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'C' || e.key === 'c')) {
+                e.preventDefault();
+            }
+    
+            if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+                e.preventDefault();
+            }
+    
+            if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+                e.preventDefault();
+            }
+    
+            if (e.key === 'F12') {
+                e.preventDefault();
+            }
+        });
+    </script>
+</head>
+<body>
+    <main>
+        <section id="withoutlogin" class="active">
+            <header>
+                <h1>Infine selections</h1>
+                <nav>
+                    <ul>
+                        <li><a href="#" onclick="ViewSection('guest-home')">Home</a></li>
+                        <li><a href="#" onclick="ViewSection('guest-products')">Products</a></li>
+                        <li><a href="#" onclick="ViewSection('guest-offers')">Offers</a></li>
+                        <li><a href="#" onclick="ViewSection('guest-contact')">Contact Us</a></li>
+                        <li><a href="#" onclick="ViewSection('register')">Register</a></li>
+                        <li><a href="#" onclick="ViewSection('login')">Login</a></li>
+                    </ul>
+                </nav>
+            </header>
+        
+            
+                <section id="guest-home" class="active">
+                    <div class="welcome">
+                        <h1>Welcome to Our E-Commerce Store</h1>
+                        <p>Explore our latest and greatest products for your little ones!</p>
+                    </div>
+            
+                    <div class="featured-products">
+                        <h2>Featured Products</h2>
+                        <div class="home-product" id="product-list-guest"></div>
+                    </div>
+            
+                    <div class="newsletter">
+                        <h2>Subscribe to Our Newsletter</h2>
+                        <form id="newsletter-form" class="newsletter-form">
+                            <input type="email" id="email" placeholder="Enter your email" required>
+                            <button type="submit">Subscribe</button>
+                        </form>
+                    </div>
+                </section>
+            
+                <section id="guest-products">
+                    <h2>All Products</h2>
+                    <div class="product-list" id="all-products-list-guest"></div>
+                </section>
+            
+                <section id="guest-offers">
+                    <h1>Current Offers</h1>
+                    <div id="offers-list">
+                        <div class="offer">
+                            <h3>20% Off on Summer Collection!</h3>
+                            <p>Shop now and enjoy a flat 20% discount on our exclusive summer collection.</p>
+                            <span>Valid until: July 31, 2024</span>
+                        </div>
+                        <div class="offer">
+                            <h3>Buy One Get One Free</h3>
+                            <p>Purchase any item from our kids' wear and get another one absolutely free!</p>
+                            <span>Valid until: August 15, 2024</span>
+                        </div>
+                        <div class="offer">
+                            <h3>Free Shipping on Orders Over $50</h3>
+                            <p>Enjoy free shipping for all orders above $50. No code required!</p>
+                            <span>Valid until: Ongoing</span>
+                        </div>
+                    </div>
+                </section>
+            
+                <style>
+                    #guest-contact {
+                        background-color: #f9f9f9; /* Light background color */
+                        padding: 20px; /* Padding for the section */
+                        border-radius: 8px; /* Rounded corners for the section */
+                        margin: 20px; /* Margin for spacing around the section */
+                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+                    }
+                    #guest-contact h1 {
+                        font-size: 2.5em; /* Large heading */
+                        color: #2b2e33; /* Dark color for text */
+                        margin-bottom: 20px; /* Space below the heading */
+                        text-align: center; /* Center the heading */
+                    }
+
+                    /* Contact info styles */
+                    .contact-info {
+                        background-color: #ffffff; /* White background for contact info */
+                        border-radius: 8px; /* Rounded corners */
+                        padding: 15px; /* Padding inside the contact info */
+                        margin-bottom: 20px; /* Space below the contact info */
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+                    }
+
+                    .contact-info p {
+                        font-size: 1.1em; /* Font size for contact info text */
+                        color: #555; /* Medium gray for text */
+                        margin-bottom: 10px; /* Space below each paragraph */
+                    }
+
+                    /* Contact form styles */
+                    .contact-form {
+                        display: flex; /* Use flexbox for layout */
+                        flex-direction: column; /* Stack form elements vertically */
+                        gap: 15px; /* Space between form elements */
+                    }
+
+                    .form-group {
+                        display: flex; /* Flex layout for label and input */
+                        flex-direction: column; /* Stack label above input */
+                    }
+
+                    .form-group label {
+                        font-weight: bold; /* Bold label text */
+                        margin-bottom: 5px; /* Space below the label */
+                    }
+
+                    .form-group input,
+                    .form-group textarea {
+                        padding: 10px; /* Padding inside input and textarea */
+                        border: 1px solid #ccc; /* Light border */
+                        border-radius: 5px; /* Rounded corners */
+                        font-size: 1em; /* Font size for input and textarea */
+                    }
+
+                    .form-group textarea {
+                        resize: vertical; /* Allow vertical resizing only */
+                    }
+
+                    /* Button styles */
+                    .contact-form button {
+                        padding: 10px 20px; /* Padding for button */
+                        background-color: #ffdd57; /* Button color */
+                        border: none; /* No border */
+                        border-radius: 5px; /* Rounded corners */
+                        color: #2b2e33; /* Dark text color */
+                        font-weight: bold; /* Bold text */
+                        cursor: pointer; /* Pointer on hover */
+                        transition: background-color 0.3s; /* Transition effect */
+                    }
+
+                    .contact-form button:hover {
+                        background-color: #e6c54c; /* Darken button on hover */
+                    }
+
+                    /* Responsive styles */
+                    @media (max-width: 600px) {
+                        #guest-contact h1 {
+                            font-size: 2em; /* Smaller heading on mobile */
+                        }
+
+                        .contact-info p,
+                        .form-group label {
+                            font-size: 1em; /* Adjusted font size */
+                        }
+                    }
+
+                </style>
+                <section id="guest-contact">
+                    <h1>Contact Us</h1>
+                    <div class="contact-info">
+                        <p>If you have any questions, feel free to reach out!</p>
+                        <p><strong>Email:</strong> support@example.com</p>
+                        <p><strong>Phone:</strong> (123) 456-7890</p>
+                        <p><strong>Address:</strong> 123 E-commerce St, Shop City, ST 12345</p>
+                    </div>
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message:</label>
+                            <textarea id="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit">Send Message</button>
+                    </form>
+                </section>
+        
+                <style>
+                    /* General styles for the login section */
+                    #login {
+                        background-color: #f9f9f9; /* Light background color */
+                        padding: 20px; /* Padding for the section */
+                        border-radius: 8px; /* Rounded corners for the section */
+                        margin: 20px; /* Margin for spacing around the section */
+                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                    }
+
+                    /* Title styles */
+                    #login h1 {
+                        font-size: 2.5em; /* Large heading */
+                        color: #2b2e33; /* Dark color for text */
+                        margin-bottom: 20px; /* Space below the heading */
+                        text-align: center; /* Center the heading */
+                    }
+
+                    /* Login form styles */
+                    .login-form {
+                        display: flex; /* Use flexbox for layout */
+                        flex-direction: column; /* Stack form elements vertically */
+                        gap: 15px; /* Space between form elements */
+                    }
+
+                    .form-group {
+                        display: flex; /* Flex layout for label and input */
+                        flex-direction: column; /* Stack label above input */
+                    }
+
+                    .form-group label {
+                        font-weight: bold; /* Bold label text */
+                        margin-bottom: 5px; /* Space below the label */
+                    }
+
+                    .form-group input {
+                        padding: 10px; /* Padding inside input */
+                        border: 1px solid #ccc; /* Light border */
+                        border-radius: 5px; /* Rounded corners */
+                        font-size: 1em; /* Font size for input */
+                    }
+
+                    /* Button styles for password toggle */
+                    #toggle-password {
+                        padding: 10px; /* Padding for button */
+                        background-color: #ffdd57; /* Button color */
+                        border: none; /* No border */
+                        border-radius: 0 0 5px 5px; /* Rounded corners */
+                        color: #2b2e33; /* Dark text color */
+                        cursor: pointer; /* Pointer on hover */
+                        transition: background-color 0.3s; /* Transition effect */
+                    }
+
+                    #toggle-password:hover {
+                        background-color: #e6c54c; /* Darken button on hover */
+                    }
+
+                    /* Submit button styles */
+                    .login-form button[type="submit"] {
+                        padding: 10px 20px; /* Padding for button */
+                        background-color: #ffdd57; /* Button color */
+                        border: none; /* No border */
+                        border-radius: 5px; /* Rounded corners */
+                        color: #2b2e33; /* Dark text color */
+                        font-weight: bold; /* Bold text */
+                        cursor: pointer; /* Pointer on hover */
+                        transition: background-color 0.3s; /* Transition effect */
+                    }
+
+                    .login-form button[type="submit"]:hover {
+                        background-color: #e6c54c; /* Darken button on hover */
+                    }
+
+                    /* Forgot password link styles */
+                    .forgot-password {
+                        text-align: center; /* Center the text */
+                        margin-top: 15px; /* Space above the link */
+                    }
+
+                    .forgot-password a {
+                        color: #ff6f00; /* Color for the forgot password link */
+                        text-decoration: underline; /* Underline for emphasis */
+                    }
+
+                    /* Responsive styles */
+                    @media (max-width: 600px) {
+                        #login h1 {
+                            font-size: 2em; /* Smaller heading on mobile */
+                        }
+
+                        .form-group label,
+                        .forgot-password p {
+                            font-size: 1em; /* Adjusted font size */
+                        }
+                    }
+
+                </style>
+                <section id="login">
+                    <h1>Login</h1>
+                    <form id="login-form" class="login-form">
+                        <div class="form-group">
+                            <label for="username">Username or Email:</label>
+                            <input type="text" id="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" style="border-radius: 5px 5px 0 0;" required>
+                            <button type="button" id="toggle-password" style="width: 100%; border-radius: 0 0 5px 5px;">Show</button>
+                        </div>
+                        <button type="submit">Login</button>
+                    </form>
+                    <div class="forgot-password">
+                        <p><a href="#" onclick="ViewSection('forgot-password')">Forgot Password?</a></p>
+                    </div>
+                </section>
+
+                <style>
+                    /* General styles for the forgot password section */
+                    #forgot-password {
+                        background-color: #f9f9f9; /* Light background color */
+                        padding: 20px; /* Padding for the section */
+                        border-radius: 8px; /* Rounded corners for the section */
+                        margin: 20px; /* Margin for spacing around the section */
+                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+                    }
+
+                    /* Title styles */
+                    #forgot-password h1 {
+                        font-size: 2.5em; /* Large heading */
+                        color: #2b2e33; /* Dark color for text */
+                        margin-bottom: 20px; /* Space below the heading */
+                        text-align: center; /* Center the heading */
+                    }
+
+                    /* Forgot password form styles */
+                    .forgot-password-form {
+                        display: flex; /* Use flexbox for layout */
+                        flex-direction: column; /* Stack form elements vertically */
+                        gap: 15px; /* Space between form elements */
+                    }
+
+                    .form-group {
+                        display: flex; /* Flex layout for label and input */
+                        flex-direction: column; /* Stack label above input */
+                    }
+
+                    .form-group label {
+                        font-weight: bold; /* Bold label text */
+                        margin-bottom: 5px; /* Space below the label */
+                    }
+
+                    .form-group input {
+                        padding: 10px; /* Padding inside input */
+                        border: 1px solid #ccc; /* Light border */
+                        border-radius: 5px; /* Rounded corners */
+                        font-size: 1em; /* Font size for input */
+                    }
+
+                    /* Submit button styles */
+                    .forgot-password-form button[type="submit"] {
+                        padding: 10px 20px; /* Padding for button */
+                        background-color: #ffdd57; /* Button color */
+                        border: none; /* No border */
+                        border-radius: 5px; /* Rounded corners */
+                        color: #2b2e33; /* Dark text color */
+                        font-weight: bold; /* Bold text */
+                        cursor: pointer; /* Pointer on hover */
+                        transition: background-color 0.3s; /* Transition effect */
+                    }
+
+                    .forgot-password-form button[type="submit"]:hover {
+                        background-color: #e6c54c; /* Darken button on hover */
+                    }
+
+                    /* Back to login link styles */
+                    .back-to-login {
+                        text-align: center; /* Center the text */
+                        margin-top: 20px; /* Space above the link */
+                    }
+
+                    .back-to-login a {
+                        color: #ff6f00; /* Color for the back to login link */
+                        text-decoration: underline; /* Underline for emphasis */
+                    }
+
+                    /* Responsive styles */
+                    @media (max-width: 600px) {
+                        #forgot-password h1 {
+                            font-size: 2em; /* Smaller heading on mobile */
+                        }
+
+                        .form-group label,
+                        .back-to-login p {
+                            font-size: 1em; /* Adjusted font size */
+                        }
+                    }
+
+                </style>
+                <section id="forgot-password">
+                    <h1>Forgot Password</h1>
+                    <form id="forgot-password-form" class="forgot-password-form">
+                        <div class="form-group">
+                            <label for="email">Enter your email address:</label>
+                            <input type="email" id="email" required placeholder="example@example.com">
+                        </div>
+                        <button type="submit">Submit</button>
+                    </form>
+                    <div class="back-to-login">
+                        <p><a href="#" onclick="ViewSection('login')">Back to Login</a></p>
+                    </div>
+                </section>
+        
+                <style>
+                    /* General styles for the register section */
+                    #register {
+                        background-color: #f9f9f9; /* Light background color */
+                        padding: 20px; /* Padding for the section */
+                        border-radius: 8px; /* Rounded corners for the section */
+                        margin: 20px; /* Margin for spacing around the section */
+                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+                    }
+
+                    /* Title styles */
+                    #register h1 {
+                        font-size: 2.5em; /* Large heading */
+                        color: #2b2e33; /* Dark color for text */
+                        margin-bottom: 20px; /* Space below the heading */
+                        text-align: center; /* Center the heading */
+                    }
+
+                    /* Registration form styles */
+                    .register-form {
+                        display: flex; /* Use flexbox for layout */
+                        flex-direction: column; /* Stack form elements vertically */
+                        gap: 15px; /* Space between form elements */
+                    }
+
+                    .form-group {
+                        display: flex; /* Flex layout for label and input */
+                        flex-direction: column; /* Stack label above input */
+                    }
+
+                    .form-group label {
+                        font-weight: bold; /* Bold label text */
+                        margin-bottom: 5px; /* Space below the label */
+                    }
+
+                    .form-group input {
+                        padding: 10px; /* Padding inside input */
+                        border: 1px solid #ccc; /* Light border */
+                        border-radius: 5px; /* Rounded corners */
+                        font-size: 1em; /* Font size for input */
+                    }
+
+                    /* Button styles */
+                    .register-form button {
+                        padding: 10px 20px; /* Padding for button */
+                        background-color: #ffdd57; /* Button color */
+                        border: none; /* No border */
+                        border-radius: 5px; /* Rounded corners */
+                        color: #2b2e33; /* Dark text color */
+                        font-weight: bold; /* Bold text */
+                        cursor: pointer; /* Pointer on hover */
+                        transition: background-color 0.3s; /* Transition effect */
+                    }
+
+                    .register-form button:hover {
+                        background-color: #e6c54c; /* Darken button on hover */
+                    }
+
+                    /* Login redirect styles */
+                    .login-redirect {
+                        margin-top: 20px; /* Space above the login redirect */
+                        text-align: center; /* Center the text */
+                    }
+
+                    .login-redirect p {
+                        font-size: 1.1em; /* Font size for redirect text */
+                        color: #555; /* Medium gray for text */
+                    }
+
+                    .login-redirect a {
+                        color: #ff6f00; /* Color for the login link */
+                        text-decoration: underline; /* Underline for emphasis */
+                    }
+
+                    /* Responsive styles */
+                    @media (max-width: 600px) {
+                        #register h1 {
+                            font-size: 2em; /* Smaller heading on mobile */
+                        }
+
+                        .form-group label,
+                        .login-redirect p {
+                            font-size: 1em; /* Adjusted font size */
+                        }
+                    }
+
+                </style>
+                <section id="register">
+                    <h1>Create an Account</h1>
+                    <form id="register-form" class="register-form">
+                        <div class="form-group">
+                            <label for="fullname">Full Name:</label>
+                            <input type="text" id="fullname" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password:</label>
+                            <input type="password" id="confirm-password" required>
+                        </div>
+                        <button type="submit">Register</button>
+                    </form>
+                    <div class="login-redirect">
+                        <p>Already have an account? <a href="#" onclick="ViewSection('login')">Login here</a></p>
+                    </div>
+                </section>
+        
+                <footer>
+                    <div class="footer-content">
+                        <div class="footer-line">
+                            <p>&copy; 2024 Infine Selections. All Rights Reserved.</p>
+                        </div>
+                        <div class="social-links">
+                            <a href="#" aria-label="Facebook">Facebook</a>
+                            <a href="#" aria-label="Twitter">Twitter</a>
+                            <a href="#" aria-label="Instagram">Instagram</a>
+                        </div>
+                    </div>
+                </footer>
+        </section>
+        <section id="withlogin">
+            <header>
+                <h1 style="font-family: 'Papyrus', fantasy;">Infine Selections</h1>
+                <nav>
+                    <ul>
+                        <li><a href="#" onclick="showLoginSection('home')">Home</a></li>
+                        <li><a href="#" onclick="showLoginSection('products')">Products</a></li>
+                        <li><a href="#" onclick="showLoginSection('offers')">Offers</a></li>
+                        <li><a href="#" onclick="showLoginSection('cart')"><span id="cart-count">Cart (0)</span></a></li>
+                        <li><a href="#" onclick="showLoginSection('contact')">Contact Us</a></li>
+                        <li><a href="#" onclick="showLoginSection('account')">Account</a></li>
+                    </ul>
+                </nav>
+            </header>
+        
+            <a href="#" onclick="showLoginSection('cart')">
+                <div class="cart">
+                    <img src="https://cdn.shopify.com/app-store/listing_images/2b9bba2ab61edabc6d836f14f9377671/icon/CL-Lhc30lu8CEAE=.png" alt="Add to Cart" class="cart-icon">
+                    <div class="count">
+                        <span id="cart-count-bottom">0</span>
+                    </div>
+                </div>
+            </a>
+        
+            <section id="home" class="active">
+                <div class="welcome">
+                    <h1>Welcome to <h1 style="font-family: 'Papyrus', fantasy;">Infine Selections</h1></h1>
+                    <p>Explore our latest and greatest products for your little ones!</p>
+                </div>
+        
+                <div class="featured-products">
+                    <h2>Featured Products</h2>
+                    <div class="home-product" id="product-list"></div>
+                </div>
+        
+                <div class="newsletter">
+                    <h2>Subscribe to Our Newsletter</h2>
+                    <form id="newsletter-form" class="newsletter-form">
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </section>
+        
+            <style>
+                /* Container for all products */
+                #all-products-list {
+                    display: flex; /* Use flexbox for layout */
+                    flex-wrap: wrap; /* Allow wrapping of items */
+                    justify-content: space-around; /* Space items evenly */
+                }
+
+                #products {
+                    background-color: #f4f4f4; /* Light background for contrast */
+                    border-radius: 8px; /* Rounded corners */
+                    padding: 20px; /* Padding for spacing */
+                    margin: 20px 0; /* Vertical margin between sections */
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+                }
+
+                #products h2 {
+                    text-align: center;
+                    font-size: 2em; /* Heading size */
+                    color: #2b2e33; /* Dark color for text */
+                    margin-bottom: 15px; /* Space below the heading */
+                }
+            </style>
+            <section id="products">
+                <h2>All Products</h2>
+                <div class="product-list" id="all-products-list"></div>
+            </section>
+        
+            <section id="offers">
+                <h1>Current Offers</h1>
+                <div id="offers-list">
+                    <div class="offer">
+                        <h3>20% Off on Summer Collection!</h3>
+                        <p>Shop now and enjoy a flat 20% discount on our exclusive summer collection.</p>
+                        <span>Valid until: July 31, 2024</span>
+                    </div>
+                    <div class="offer">
+                        <h3>Buy One Get One Free</h3>
+                        <p>Purchase any item from our kids' wear and get another one absolutely free!</p>
+                        <span>Valid until: August 15, 2024</span>
+                    </div>
+                    <div class="offer">
+                        <h3>Free Shipping on Orders Over $50</h3>
+                        <p>Enjoy free shipping for all orders above $50. No code required!</p>
+                        <span>Valid until: Ongoing</span>
+                    </div>
+                </div>
+            </section>
+        
+            <style>
+                /* Cart section styling */
+                #cart {
+                    padding: 20px; /* Padding for spacing */
+                    background-color: #f9f9f9; /* Light background for contrast */
+                    border-radius: 8px; /* Rounded corners for modern look */
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+                }
+
+                /* Headings */
+                #cart h1 {
+                    text-align: center;
+                    font-size: 24px; /* Larger font for main heading */
+                    color: #333; /* Dark text color */
+                    margin-bottom: 20px; /* Space below heading */
+                }
+
+                /* Table styling */
+                table {
+                    width: 100%; /* Full-width table */
+                    border-collapse: collapse; /* Remove gaps between cells */
+                    margin-bottom: 20px; /* Space below table */
+                }
+
+                /* Table header styling */
+                thead {
+                    background-color: #f2f2f2; /* Light grey background for header */
+                }
+
+                th {
+                    padding: 12px; /* Padding for header cells */
+                    text-align: left; /* Left-align text */
+                    font-weight: bold; /* Bold text for headers */
+                    border-bottom: 2px solid #ddd; /* Bottom border for separation */
+                }
+
+                /* Table body styling */
+                tbody tr {
+                    transition: background-color 0.3s; /* Smooth transition for hover */
+                }
+
+                tbody tr:hover {
+                    background-color: #f9f9f9; /* Highlight row on hover */
+                }
+
+                td {
+                    padding: 12px; /* Padding for body cells */
+                    border-bottom: 1px solid #ddd; /* Bottom border for separation */
+                }
+
+                /* Image cell styling */
+                td img {
+                    max-width: 50px; /* Limit the width of images */
+                    height: auto; /* Maintain aspect ratio */
+                    border-radius: 4px; /* Optional: rounded corners for images */
+                }
+
+                /* Responsive styling */
+                @media (max-width: 600px) {
+                    th, td {
+                        padding: 8px; /* Reduce padding on smaller screens */
+                    }
+                }
+
+
+                /* Cart total styling */
+                #cart-total {
+                    font-size: 18px; /* Slightly larger font for total */
+                    font-weight: bold; /* Bold total amount */
+                    margin-bottom: 20px; /* Space below total */
+                }
+
+                /* Checkout button styling */
+                #checkout-button {
+                    background-color: #ffdd57; /* Bright button color */
+                    color: #2b2e33; /* Dark text color */
+                    border: none; /* No border */
+                    padding: 10px 20px; /* Padding for better click area */
+                    border-radius: 5px; /* Rounded corners */
+                    cursor: pointer; /* Pointer cursor on hover */
+                    font-size: 16px; /* Font size */
+                    transition: background-color 0.3s; /* Transition for hover effects */
+                }
+
+                #checkout-button:hover {
+                    background-color: #e1c250; /* Darken button on hover */
+                }
+
+                /* Modal styling */
+                .modal {
+                    display: none; /* Hidden by default */
+                    position: fixed; /* Stay in place */
+                    z-index: 1000; /* Sit on top */
+                    left: 0;
+                    top: 0;
+                    width: 100%; /* Full width */
+                    height: 100%; /* Full height */
+                    overflow: auto; /* Enable scroll if needed */
+                    background-color: rgba(0, 0, 0, 0.7); /* Black with opacity */
+                }
+
+                /* Modal content */
+                .modal-content {
+                    background-color: #fff; /* White background for modal */
+                    margin: 15% auto; /* 15% from the top and centered */
+                    padding: 20px; /* Padding inside modal */
+                    border-radius: 8px; /* Rounded corners */
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+                    width: 80%; /* Width of modal */
+                    max-width: 500px; /* Maximum width */
+                }
+
+                /* Close button for modal */
+                .close {
+                    color: #aaa; /* Grey color for close button */
+                    float: right; /* Align to the right */
+                    font-size: 28px; /* Font size */
+                    font-weight: bold; /* Bold font */
+                }
+
+                .close:hover,
+                .close:focus {
+                    color: black; /* Darken close button on hover */
+                    text-decoration: none; /* No underline */
+                    cursor: pointer; /* Pointer cursor */
+                }
+
+                /* Form group styling */
+                .form-group {
+                    margin-bottom: 15px; /* Space between form fields */
+                }
+
+                /* Input field styling */
+                input[type="text"],
+                input[type="email"] {
+                    width: 100%; /* Full width */
+                    padding: 10px; /* Padding */
+                    border: 1px solid #ccc; /* Border */
+                    border-radius: 4px; /* Rounded corners */
+                }
+
+                /* Submit button styling */
+                #place-order-button {
+                    background-color: #4CAF50; /* Green button color */
+                    color: white; /* White text */
+                    border: none; /* No border */
+                    padding: 10px 20px; /* Padding */
+                    border-radius: 5px; /* Rounded corners */
+                    cursor: pointer; /* Pointer cursor */
+                    font-size: 16px; /* Font size */
+                    transition: background-color 0.3s; /* Transition for hover */
+                }
+
+                #place-order-button:hover {
+                    background-color: #45a049; /* Darken button on hover */
+                }
+
+
+            </style>
+            <section id="cart">
+                <h1>Your Cart</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items"></tbody>
+                </table>
+                <div id="cart-total">
+                    <strong>Total: $<span id="total-price">0.00</span></strong>
+                </div>
+                <button id="checkout-button">Checkout</button>
+                
+                <!-- Customer Details Modal -->
+                <div id="customer-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeCustomerModal()">&times;</span>
+                        <h2>Customer Details</h2>
+                        <form id="customer-form">
+                            <div class="form-group">
+                                <label for="customer-name">Name:</label>
+                                <input type="text" id="customer-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="customer-email">Email:</label>
+                                <input type="email" id="customer-email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="customer-address">Address:</label>
+                                <input type="text" id="customer-address" required>
+                            </div>
+                            <button type="submit" id="place-order-button">Place Order</button>
+                        </form>
+                    </div>
+                </div>
+            
+                <!-- Delivery Countdown Modal -->
+                <div id="delivery-countdown-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeDeliveryCountdownModal()">&times;</span>
+                        <h2>Order Confirmation</h2>
+                        <p>Your order has been placed!</p>
+                        <p>Estimated delivery in <span id="countdown-days">3</span> days.</p>
+                    </div>
+                </div>
+                <script>
+                    document.getElementById('checkout-button').onclick = function() {
+                        document.getElementById('customer-modal').style.display = 'block';
+                    };
+
+                    document.getElementById('customer-form').onsubmit = function(event) {
+                        event.preventDefault(); // Prevent form submission
+                        document.getElementById('customer-modal').style.display = 'none';
+                        startDeliveryCountdown();
+                    };
+
+                    function startDeliveryCountdown() {
+                        const countdownDays = 3; // Set your desired countdown
+                        document.getElementById('delivery-countdown-modal').style.display = 'block';
+                        document.getElementById('countdown-days').innerText = countdownDays;
+
+                        // Optional: Here you can set a timer to count down days if needed.
+                    }
+
+                    function closeCustomerModal() {
+                        document.getElementById('customer-modal').style.display = 'none';
+                    }
+
+                    function closeDeliveryCountdownModal() {
+                        document.getElementById('delivery-countdown-modal').style.display = 'none';
+                    }
+
+                </script>
+            </section>            
+        
+            <style>
+                /* General styles for the contact section */
+                #contact {
+                    background-color: #f9f9f9; /* Light background color */
+                    padding: 20px; /* Padding for the section */
+                    border-radius: 8px; /* Rounded corners */
+                    margin: 20px; /* Margin for spacing around the section */
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+                }
+
+                /* Title styles */
+                #contact h1 {
+                    font-size: 2.5em; /* Large heading */
+                    color: #2b2e33; /* Dark color for text */
+                    margin-bottom: 20px; /* Space below the heading */
+                    text-align: center; /* Center the heading */
+                }
+
+                /* Contact info styles */
+                .contact-info {
+                    margin-bottom: 20px; /* Space below contact info */
+                    text-align: center; /* Center the text */
+                }
+
+                .contact-info p {
+                    font-size: 1.1em; /* Slightly larger text */
+                    color: #555; /* Medium gray for the text */
+                }
+
+                /* Form styles */
+                .contact-form {
+                    display: flex; /* Flexbox layout for the form */
+                    flex-direction: column; /* Stack elements vertically */
+                    gap: 15px; /* Space between form elements */
+                }
+
+                .form-group {
+                    display: flex; /* Flexbox for form groups */
+                    flex-direction: column; /* Stack label and input vertically */
+                }
+
+                .form-group label {
+                    font-weight: bold; /* Bold label */
+                    color: #2b2e33; /* Dark color for labels */
+                    margin-bottom: 5px; /* Space below the label */
+                }
+
+                .form-group input,
+                .form-group textarea {
+                    padding: 10px; /* Padding inside inputs */
+                    border: 1px solid #ccc; /* Light border */
+                    border-radius: 5px; /* Rounded corners */
+                    font-size: 1em; /* Font size for inputs */
+                    width: 100%; /* Full width */
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for inputs */
+                }
+
+                .form-group textarea {
+                    resize: vertical; /* Allow vertical resizing of textarea */
+                }
+
+                /* Button styles */
+                .contact-form button {
+                    padding: 10px 20px; /* Padding for button */
+                    background-color: #ffdd57; /* Button color */
+                    border: none; /* No border */
+                    border-radius: 5px; /* Rounded corners */
+                    color: #2b2e33; /* Dark text color */
+                    font-weight: bold; /* Bold text */
+                    cursor: pointer; /* Pointer on hover */
+                    transition: background-color 0.3s; /* Transition effect */
+                }
+
+                .contact-form button:hover {
+                    background-color: #e6c54c; /* Darken button on hover */
+                }
+
+                /* Responsive styles */
+                @media (max-width: 600px) {
+                    #contact h1 {
+                        font-size: 2em; /* Smaller heading on mobile */
+                    }
+
+                    .contact-info p {
+                        font-size: 1em; /* Adjust text size for mobile */
+                    }
+
+                    .form-group input,
+                    .form-group textarea {
+                        font-size: 0.9em; /* Smaller font size for inputs */
+                    }
+                }
+
+            </style>
+            <section id="contact">
+                <h1>Contact Us</h1>
+                <div class="contact-info">
+                    <p>If you have any questions, feel free to reach out!</p>
+                    <p><strong>Email:</strong> support@sajif.com</p>
+                    <p><strong>Phone:</strong> (9478) 356-6823</p>
+                    <p><strong>Address:</strong> 81 Amplavanar Road, Uduvil, Chunnakam</p>
+                </div>
+                <form id="contact-form" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit">Send Message</button>
+                </form>
+            </section>
+    
+            <style>
+                /* General styles for the account section */
+                #account {
+                    background-color: #f9f9f9; /* Light background color */
+                    padding: 20px; /* Padding for the section */
+                    border-radius: 8px; /* Rounded corners */
+                    margin: 20px; /* Margin for spacing around the section */
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+                }
+
+                /* Title styles */
+                #account h1 {
+                    font-size: 2.5em; /* Large heading */
+                    color: #2b2e33; /* Dark color for text */
+                    margin-bottom: 20px; /* Space below the heading */
+                    text-align: center; /* Center the heading */
+                }
+
+                /* Account details styles */
+                .account-info {
+                    margin-bottom: 30px; /* Space below account info */
+                }
+
+                .account-info h2 {
+                    font-size: 2em; /* Subheading size */
+                    color: #2b2e33; /* Dark color for text */
+                    margin-bottom: 15px; /* Space below subheading */
+                }
+
+                /* Form styles */
+                .account-form {
+                    display: flex; /* Flexbox layout for the form */
+                    flex-direction: column; /* Stack elements vertically */
+                    gap: 15px; /* Space between form elements */
+                }
+
+                .form-group {
+                    display: flex; /* Flexbox for form groups */
+                    flex-direction: column; /* Stack label and input vertically */
+                }
+
+                .form-group label {
+                    font-weight: bold;
+                    color: #2b2e33;
+                    margin-bottom: 5px;
+                }
+
+                .form-group input {
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    font-size: 1em;
+                }
+
+                /* Button styles */
+                .account-form button {
+                    padding: 10px 20px; /* Padding for button */
+                    background-color: #ffdd57; /* Button color */
+                    border: none; /* No border */
+                    border-radius: 5px; /* Rounded corners */
+                    color: #2b2e33; /* Dark text color */
+                    font-weight: bold; /* Bold text */
+                    cursor: pointer; /* Pointer on hover */
+                    transition: background-color 0.3s; /* Transition effect */
+                    margin-top: 10px; /* Space above button */
+                }
+
+                .account-form button:hover {
+                    background-color: #e6c54c; /* Darken button on hover */
+                }
+
+                /* Order history styles */
+                .order-history h2 {
+                    font-size: 2em; /* Subheading size */
+                    color: #2b2e33; /* Dark color for text */
+                    margin: 20px 0; /* Space above and below */
+                }
+
+                .order-history table {
+                    width: 100%; /* Full width for table */
+                    border-collapse: collapse; /* Remove spacing between cells */
+                    margin-top: 10px; /* Space above table */
+                }
+
+                .order-history th,
+                .order-history td {
+                    color: #000000;
+                    border: 1px solid #ddd; /* Light border for cells */
+                    padding: 10px; /* Padding inside cells */
+                    text-align: left; /* Align text to the left */
+                }
+
+                .order-history th {
+                    background-color: #f4f4f4; /* Light background for headers */
+                }
+
+                /* Logout button styles */
+                .logout {
+                    text-align: center; /* Center logout button */
+                    margin-top: 20px; /* Space above logout section */
+                }
+
+                .logout button {
+                    padding: 10px 20px; /* Padding for button */
+                    background-color: #ff4c4c; /* Logout button color */
+                    border: none; /* No border */
+                    border-radius: 5px; /* Rounded corners */
+                    color: white; /* White text color */
+                    font-weight: bold; /* Bold text */
+                    cursor: pointer; /* Pointer on hover */
+                    transition: background-color 0.3s; /* Transition effect */
+                }
+
+                .logout button:hover {
+                    background-color: #e63939; /* Darken button on hover */
+                }
+
+                /* Responsive styles */
+                @media (max-width: 600px) {
+                    #account h1 {
+                        font-size: 2em; /* Smaller heading on mobile */
+                    }
+
+                    .account-info h2,
+                    .order-history h2 {
+                        font-size: 1.5em; /* Smaller subheading on mobile */
+                    }
+
+                    .account-form input {
+                        font-size: 0.9em; /* Smaller font size for inputs */
+                    }
+
+                    .order-history th,
+                    .order-history td {
+                        font-size: 0.9em; /* Smaller font size for table */
+                    }
+                }
+
+            </style>
+            <section id="account">
+                <h1>My Account</h1>
+                
+                <div class="account-info">
+                    <h2>Account Details</h2>
+                    <form id="account-form" class="account-form">
+                        <div class="form-group">
+                            <label for="fullname">Full Name:</label>
+                            <input type="text" id="fullname" value="Sajeepan" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" value="Sajee11@gmail.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" placeholder="Change password">
+                        </div>
+                        <button type="submit">Update Account</button>
+                    </form>
+                </div>
+            
+                <div class="order-history">
+                    <h2>Order History</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Date</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#001</td>
+                                <td>2024-09-15</td>
+                                <td>$45.00</td>
+                                <td>Shipped</td>
+                            </tr>
+                            <tr>
+                                <td>#002</td>
+                                <td>2024-08-22</td>
+                                <td>$32.00</td>
+                                <td>Delivered</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="logout">
+                    <button onclick="mainShow('withoutlogin')">Logout</button>
+                </div>
+            </section>
+
+            <style>
+                /* General styles for the help section */
+                #help {
+                    background-color: #f9f9f9; /* Light background for contrast */
+                    padding: 20px; /* Padding for the section */
+                    border-radius: 8px; /* Rounded corners */
+                    margin: 20px; /* Margin for spacing around the section */
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+                }
+
+                /* Heading styles */
+                #help h2 {
+                    font-size: 2em; /* Main section heading size */
+                    color: #2b2e33; /* Dark color for text */
+                    margin-bottom: 20px; /* Space below heading */
+                }
+
+                .faq-item {
+                    margin-bottom: 15px; /* Space between FAQ items */
+                    padding: 15px; /* Padding for each FAQ item */
+                    border: 1px solid #ddd; /* Light border */
+                    border-radius: 5px; /* Rounded corners */
+                    background-color: #ffffff; /* White background for items */
+                }
+
+                /* FAQ question styles */
+                .faq-item h3 {
+                    font-size: 1.5em; /* Size of the FAQ question */
+                    color: #2b2e33; /* Dark color for questions */
+                    margin-bottom: 10px; /* Space below the question */
+                }
+
+                /* FAQ answer styles */
+                .faq-item p {
+                    font-size: 1em; /* Font size for answers */
+                    color: #555; /* Medium gray for text */
+                }
+
+                /* User guides list styles */
+                .help-list {
+                    list-style-type: none; /* Remove bullet points */
+                    padding: 0; /* Remove padding */
+                }
+
+                .help-list li {
+                    margin-bottom: 10px; /* Space between list items */
+                }
+
+                .help-list a {
+                    text-decoration: none; /* Remove underline from links */
+                    color: #ff6f00; /* Color for links */
+                    font-weight: bold; /* Bold text for links */
+                }
+
+                .help-list a:hover {
+                    text-decoration: underline; /* Underline on hover */
+                }
+
+                /* Help content styles */
+                .help-content {
+                    display: none; /* Hide help content by default */
+                    margin-top: 20px; /* Space above help content */
+                }
+
+                .help-content h2 {
+                    font-size: 1.8em; /* Heading size for help content */
+                    color: #2b2e33; /* Dark color for text */
+                    margin-bottom: 10px; /* Space below heading */
+                }
+
+                .help-content p {
+                    font-size: 1em; /* Font size for help content */
+                    color: #555; /* Medium gray for text */
+                }
+
+                /* Responsive styles */
+                @media (max-width: 600px) {
+                    #help h2 {
+                        font-size: 1.8em; /* Smaller heading on mobile */
+                    }
+
+                    .faq-item h3 {
+                        font-size: 1.3em; /* Smaller question size on mobile */
+                    }
+
+                    .faq-item p,
+                    .help-content p {
+                        font-size: 0.9em; /* Smaller text size on mobile */
+                    }
+                }
+
+            </style>
+            <section id="help">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-item">
+                    <h3>How do I create an account?</h3>
+                    <p>You can create an account by clicking on the "Register" button at the top right of the homepage. Fill in your details and submit the form.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How do I reset my password?</h3>
+                    <p>If you've forgotten your password, click on "Forgot Password?" on the login page. Follow the instructions to reset your password.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What payment methods do you accept?</h3>
+                    <p>We accept all major credit cards, PayPal, and other payment methods as specified during checkout.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How can I track my order?</h3>
+                    <p>You can track your order by logging into your account and going to the "Order History" section.</p>
+                </div>
+
+                <h2>User Guides</h2>
+                <p>Check out our user guides for detailed information on how to use our website:</p>
+                <ul class="help-list">
+                    <li><a href="#shopping" onclick="showContent('shopping')">How to Shop on Our Site</a></li>
+                    <li><a href="#help-account" onclick="showContent('help-account')">Understanding Your Account Settings</a></li>
+                    <li><a href="#navigation" onclick="showContent('navigation')">Navigating Our Product Categories</a></li>
+                </ul>
+            
+                <div id="shopping" class="help-content">
+                    <h2>How to Shop on Our Site</h2>
+                    <p>To shop on our site, browse through our categories or use the search bar to find specific products. Once you find an item you like, click on it to view more details, and then add it to your cart.</p>
+                </div>
+            
+                <div id="help-account" class="help-content">
+                    <h2>Understanding Your Account Settings</h2>
+                    <p>Your account settings allow you to manage your personal information, view your order history, and update your preferences. You can access these settings by clicking on your profile icon in the top right corner.</p>
+                </div>
+            
+                <div id="navigation" class="help-content">
+                    <h2>Navigating Our Product Categories</h2>
+                    <p>Our product categories are listed on the main menu. You can click on any category to explore related products, or use filters to narrow down your search based on price, size, and other criteria.</p>
+                </div>
+            
+                <script>
+                    function showContent(contentId) {
+                        const contents = document.querySelectorAll('.help-content');
+                        contents.forEach(content => {
+                            content.style.display = 'none';
+                        });
+                        document.getElementById(contentId).style.display = 'block';
+                    }
+                </script>
+            </section>
+
+            <style>
+                /* General styles for the About Us section */
+                #about-us {
+                    background-color: #f9f9f9; /* Light background for contrast */
+                    padding: 30px; /* Padding for the section */
+                    border-radius: 8px; /* Rounded corners */
+                    margin: 20px; /* Margin for spacing around the section */
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+                }
+
+                /* Heading styles */
+                #about-us h2 {
+                    font-size: 2.5em; /* Main heading size */
+                    color: #2b2e33; /* Dark color for text */
+                    margin-bottom: 15px; /* Space below the heading */
+                }
+
+                #about-us h3 {
+                    font-size: 1.8em; /* Subheading size */
+                    color: #2b2e33; /* Dark color for subheadings */
+                    margin-top: 20px; /* Space above subheadings */
+                    margin-bottom: 10px; /* Space below subheadings */
+                }
+
+                /* Paragraph styles */
+                #about-us p {
+                    font-size: 1.1em; /* Font size for paragraphs */
+                    color: #555; /* Medium gray for text */
+                    line-height: 1.6; /* Line height for readability */
+                    margin-bottom: 15px; /* Space below paragraphs */
+                }
+
+                /* List styles */
+                #about-us ul {
+                    list-style-type: disc; /* Bullet points for lists */
+                    margin-left: 20px; /* Indent list items */
+                    margin-bottom: 15px; /* Space below the list */
+                }
+
+                #about-us li {
+                    margin-bottom: 10px; /* Space between list items */
+                }
+
+                /* Link styles */
+                #about-us a {
+                    color: #ff6f00; /* Color for links */
+                    text-decoration: none; /* Remove underline */
+                    font-weight: bold; /* Bold text for emphasis */
+                }
+
+                #about-us a:hover {
+                    text-decoration: underline; /* Underline on hover */
+                }
+
+                /* Responsive styles */
+                @media (max-width: 600px) {
+                    #about-us h2 {
+                        font-size: 2em; /* Smaller main heading on mobile */
+                    }
+
+                    #about-us h3 {
+                        font-size: 1.5em; /* Smaller subheading on mobile */
+                    }
+
+                    #about-us p,
+                    #about-us li {
+                        font-size: 1em; /* Smaller text size on mobile */
+                    }
+                }
+
+            </style>
+            <section id="about-us">
+                <h2>About Us</h2>
+                <p>Welcome to Infine Selections, where we believe in providing the best products to our customers. Our mission is to offer quality goods and exceptional service to make your shopping experience enjoyable and memorable.</p>
+
+                <h3>Our Story</h3>
+                <p>Founded in 2024, Tiny Trends began with a simple vision: to create a delightful online shopping experience for parents looking for stylish and affordable kids' dresses. Our offerings include:</p>
+                <ul>
+                    <li><strong>Fashionable Dresses:</strong> We offer a wide range of trendy dresses for girls of all ages, ensuring that your little ones look adorable for every occasion.</li>
+                    <li><strong>Comfort and Quality:</strong> Each dress is made with high-quality, breathable fabrics, prioritizing comfort and durability for active kids.</li>
+                    <li><strong>Sustainable Choices:</strong> We believe in sustainability, offering eco-friendly options that are good for your child and the planet.</li>
+                    <li><strong>Seasonal Collections:</strong> Our collections are updated seasonally, featuring the latest styles and designs to keep your child’s wardrobe fresh and fun.</li>
+                    <li><strong>Affordable Prices:</strong> We aim to provide stylish dresses at prices that won’t break the bank, so you can shop without worry.</li>
+                </ul>
+                <p>Over the years, we have grown into a trusted name in kids' fashion, continually expanding our offerings and improving our services to meet the needs of modern families.</p>
+
+                <h3>Our Values</h3>
+                <ul>
+                    <li><strong>Quality:</strong> We are committed to providing high-quality products that stand the test of time.</li>
+                    <li><strong>Customer Satisfaction:</strong> Our customers are our top priority, and we strive to exceed their expectations with every purchase.</li>
+                    <li><strong>Integrity:</strong> We believe in transparency and honesty in all our dealings, ensuring a trustworthy shopping experience.</li>
+                    <li><strong>Innovation:</strong> We are always looking for new styles and ideas to enhance our product offerings, keeping your little ones fashionable and happy.</li>
+                </ul>
+
+                <h3>Meet Our Team</h3>
+                <p>Our team is made up of dedicated professionals who are passionate about what they do. Together, we work hard to ensure that every customer has a positive experience.</p>
+
+                <h3>Get in Touch</h3>
+                <p>If you have any questions or would like to learn more about us, feel free to <a href="#" onclick="showLoginSection('contact')">contact us</a>.</p>
+            </section>
+
+            <style>
+                /* General styles for the Privacy Policy section */
+                #privacy-policy {
+                    background-color: #ffffff; /* White background for a clean look */
+                    padding: 30px; /* Padding for the section */
+                    border-radius: 8px; /* Rounded corners */
+                    margin: 20px; /* Margin for spacing around the section */
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+                }
+
+                /* Heading styles */
+                #privacy-policy h2 {
+                    font-size: 2.5em; /* Main heading size */
+                    color: #2b2e33; /* Dark color for text */
+                    margin-bottom: 15px; /* Space below the heading */
+                }
+
+                #privacy-policy h3 {
+                    font-size: 1.8em; /* Subheading size */
+                    color: #2b2e33; /* Dark color for subheadings */
+                    margin-top: 20px; /* Space above subheadings */
+                    margin-bottom: 10px; /* Space below subheadings */
+                }
+
+                /* Paragraph styles */
+                #privacy-policy p {
+                    font-size: 1.1em; /* Font size for paragraphs */
+                    color: #555; /* Medium gray for text */
+                    line-height: 1.6; /* Line height for readability */
+                    margin-bottom: 15px; /* Space below paragraphs */
+                }
+
+                /* List styles */
+                #privacy-policy ul {
+                    list-style-type: disc; /* Bullet points for lists */
+                    margin-left: 20px; /* Indent list items */
+                    margin-bottom: 15px; /* Space below the list */
+                }
+
+                #privacy-policy li {
+                    margin-bottom: 10px; /* Space between list items */
+                }
+
+                /* Responsive styles */
+                @media (max-width: 600px) {
+                    #privacy-policy h2 {
+                        font-size: 2em; /* Smaller main heading on mobile */
+                    }
+
+                    #privacy-policy h3 {
+                        font-size: 1.5em; /* Smaller subheading on mobile */
+                    }
+
+                    #privacy-policy p,
+                    #privacy-policy li {
+                        font-size: 1em; /* Smaller text size on mobile */
+                    }
+                }
+
+            </style>
+            <section id="privacy-policy">
+                <h2>Privacy Policy</h2>
+                <p>Last updated: 01/10/2024</p>
+            
+                <h3>Introduction</h3>
+                <p>Welcome to Tiny Trends. Your privacy is important to us. This Privacy Policy outlines how we collect, use, and protect your information when you visit our website and make purchases.</p>
+            
+                <h3>Information We Collect</h3>
+                <ul>
+                    <li><strong>Personal Information:</strong> When you create an account or make a purchase, we collect personal information such as your name, email address, shipping address, and payment details.</li>
+                    <li><strong>Browsing Information:</strong> We collect information about your interactions with our website, including IP addresses, browser types, and pages visited.</li>
+                    <li><strong>Cookies:</strong> Our website uses cookies to enhance user experience. You can manage your cookie preferences in your browser settings.</li>
+                </ul>
+            
+                <h3>How We Use Your Information</h3>
+                <p>We use the information we collect for the following purposes:</p>
+                <ul>
+                    <li>To process and fulfill your orders.</li>
+                    <li>To communicate with you regarding your account and orders.</li>
+                    <li>To improve our website and services based on user feedback.</li>
+                    <li>To send promotional emails about new products and special offers (you may opt out at any time).</li>
+                </ul>
+            
+                <h3>Data Security</h3>
+                <p>We are committed to ensuring that your information is secure. We implement various security measures to protect your personal information from unauthorized access or disclosure.</p>
+            
+                <h3>Sharing Your Information</h3>
+                <p>We do not sell, trade, or otherwise transfer your personal information to outside parties without your consent, except to provide services necessary to fulfill your order (e.g., shipping companies).</p>
+            
+                <h3>Your Rights</h3>
+                <p>You have the right to:</p>
+                <ul>
+                    <li>Access the personal information we hold about you.</li>
+                    <li>Request corrections to your information.</li>
+                    <li>Request the deletion of your personal data.</li>
+                    <li>Opt out of promotional communications.</li>
+                </ul>
+            
+                <h3>Changes to This Privacy Policy</h3>
+                <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. Please review this Privacy Policy periodically for any updates.</p>
+            
+                <h3>Contact Us</h3>
+                <p>If you have any questions about this Privacy Policy, please contact us at:</p>
+                <p>Email: support@tinytrends.com</p>
+                <p>Phone: (123) 456-7890</p>
+            </section>
+            
+            <style>
+                /* Footer styling */
+                .user-footer {
+                    background-color: #2b2e33; /* Dark background for a modern look */
+                    color: #e1e1e1; /* Light text color for contrast */
+                    padding: 20px;
+                    width: 100%;
+                    border-top: 4px solid #ffdd57; /* Distinctive top border */
+                }
+
+                /* Footer content container */
+                .footer-content {
+                    display: flex;
+                    flex-direction: column; /* Stack items vertically */
+                    align-items: center; /* Center content */
+                    text-align: center;
+                }
+
+                /* Footer line styling */
+                .user-footer-p {
+                    margin: 0; /* Remove default margin */
+                    font-size: 14px; /* Font size for copyright */
+                }
+
+                /* Social links container */
+                .user-footer .user-con {
+                    color: #ffdd57; /* Bright color for links */
+                    text-decoration: none;
+                    font-weight: 500; /* Medium weight for emphasis */
+                    padding: 8px 12px; /* Padding for better click area */
+                    border-radius: 5px; /* Rounded corners for a button effect */
+                    transition: background-color 0.3s, color 0.3s; /* Transition for hover effects */
+                }
+
+                .user-footer .user-con:hover {
+                    background-color: #ffdd57; /* Highlight background on hover */
+                    color: #2b2e33; /* Dark text color on hover */
+                }
+
+                /* Media Queries for larger screens */
+                @media (min-width: 600px) {
+                    .footer-content {
+                        flex-direction: column; /* Keep column layout on larger screens */
+                        align-items: center; /* Center items in a column */
+                    }
+                }
+
+            </style>
+            <footer class="user-footer">
+                <div class="footer-content">
+                    <p class="user-footer-p">
+                        <a href="#" class="user-con" onclick="showLoginSection('help')">Help</a> |
+                        <a href="#" class="user-con" onclick="showLoginSection('about-us')">About Us</a> |
+                        <a href="#" class="user-con" onclick="showLoginSection('privacy-policy')">Privacy policy</a>
+                    </p>
+                    <p class="user-footer-p">&copy; 2024 Infine Selections. All Rights Reserved.</p>
+                </div>
+            </footer>
+        </section>
+
+        <style>
+            /* Admin Dashboard Header Styling */
+            header {
+                background-color: #2b2e33;
+                color: #ffdd57;
+                padding: 20px;
+                text-align: center;
+                border-bottom: 4px solid #ffdd57; /* Bottom border for emphasis */
+            }
+
+            header h1 {
+                font-family: 'Papyrus', fantasy; /* Custom font for the title */
+                font-size: 2.5em; /* Size for the header */
+                margin-bottom: 10px; /* Space below the header */
+            }
+
+            /* Navigation Menu */
+            nav {
+                margin-top: 10px; /* Space above navigation */
+            }
+
+            nav ul {
+                list-style: none; /* Remove bullet points */
+                display: flex; /* Flexbox for layout */
+                justify-content: center; /* Center navigation items */
+                gap: 20px; /* Space between navigation items */
+            }
+
+            nav ul li {
+                margin: 0; /* No margin for list items */
+            }
+
+            nav ul li a {
+                text-decoration: none; /* No underline for links */
+                color: #ffdd57; /* Same bright color as the header text */
+                font-weight: 500; /* Medium font weight */
+                padding: 8px 12px; /* Padding for button-like feel */
+                border-radius: 5px; /* Rounded corners */
+                transition: background-color 0.3s, color 0.3s; /* Smooth transition effects */
+            }
+
+            nav ul li a:hover {
+                background-color: #ffdd57; /* Highlight background on hover */
+                color: #2b2e33; /* Dark text color on hover */
+            }
+
+            /* General Styles for the Admin Dashboard Sections */
+            .admin-section {
+                background-color: #f4f4f4; /* Light background color for sections */
+                padding: 20px; /* Padding for sections */
+                border-radius: 8px; /* Rounded corners */
+                margin: 20px; /* Margin for spacing around sections */
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            }
+
+            .admin-body {
+                padding: 20px;
+            }
+
+            .admin-line {
+                text-align: center; 
+            }
+
+            /* Table Styling */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+
+            th, td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            thead {
+                background-color: #2b2e33;
+                color: #ffdd57;
+                border-radius: 8px 8px 0 0;
+            }
+
+            tbody tr:hover {
+                background-color: #f1f1f1; /* Light grey on row hover */
+            }
+
+            /* Button Styling */
+            button {
+                background-color: #007bff; /* Bootstrap primary color */
+                color: white; /* White text */
+                border: none; /* No border */
+                border-radius: 5px; /* Rounded corners */
+                padding: 10px 15px; /* Padding for buttons */
+                cursor: pointer; /* Pointer cursor on hover */
+                transition: background-color 0.3s; /* Smooth background change */
+            }
+
+            button:hover {
+                background-color: #0056b3; /* Darker blue on hover */
+            }
+            .add-botton {
+                background-color: #007bff; /* Bootstrap primary color */
+                color: white; /* White text */
+                border: none; /* No border */
+                border-radius: 5px; /* Rounded corners */
+                padding: 10px 15px; /* Padding for buttons */
+                cursor: pointer; /* Pointer cursor on hover */
+                transition: background-color 0.3s; /* Smooth background change */
+            }
+
+            .add-botton:hover {
+                background-color: #0056b3; /* Darker blue on hover */
+            }
+
+            .edit-button {
+                left: 30px;
+                padding: 10px 15px;
+                background-color: #ffdd57;
+                border: none;
+                border-radius: 5px;
+                color: #2b2e33;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+            .edit-button:hover {
+                background-color: #e6c54c;
+            }
+
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1000; /* Sit on top */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+            }
+
+            .modal-content {
+                background-color: #fefefe; /* White background */
+                margin: 15% auto; /* Center modal vertically */
+                padding: 20px; /* Padding inside modal */
+                border: 1px solid #888;
+                width: 80%;
+                border-radius: 8px;
+            }
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer; 
+            }
+            input[type="text"],
+            input[type="email"],
+            select {
+                width: 100%; 
+                padding: 10px; 
+                border: 1px solid #ccc;
+                border-radius: 5px; 
+                box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+            button {
+                background-color: #ffdd57;
+                color: #2b2e33;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 15px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                font-weight: bold;
+            }
+            button:hover {
+                background-color: #e6c54c;
+            }
+            footer {
+                margin-top: 20px;
+                text-align: center;
+            }
+            @media (max-width: 600px) {
+                header h1 {
+                    font-size: 2em;
+                }
+                nav ul {
+                    flex-direction: column;
+                }
+                nav ul li {
+                    margin: 5px 0;
+                }
+                .admin-section {
+                    margin: 10px;
+                }
+            }
+        </style>
+        <section id="admin-page">
+            <header class="admin-head">
+                <h1>Admin Dashboard</h1>
+                <div class="logout">
+                    <button onclick="mainShow('withoutlogin')">Logout</button>
+                </div>
+            </header>
+        
+            <div class="admin-body">
+                <div class="user">
+                    <h2 class="admin-line">Users</h2>
+                    <table id="details-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>John Doe</td>
+                                <td>john@example.com</td>
+                                <td>User</td>
+                                <td>
+                                    <button class="edit-button" onclick="editUserDetails(1)">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Jane Smith</td>
+                                <td>jane@example.com</td>
+                                <td>Admin</td>
+                                <td>
+                                    <button class="edit-button" onclick="editUserDetails(2)">Edit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            
+                <div class="products">
+                    <h2 class="admin-line">Products</h2>
+                    <div style="display: flex;">
+                        <button onclick="openProductModal()" class="add-botton">Add Product</button>
+                    </div>
+                    <table id="products-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Product A</td>
+                                <td>$10.00</td>
+                                <td>
+                                    <button class="edit-button" onclick="editProductDetails(1)">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Product B</td>
+                                <td>$15.00</td>
+                                <td>
+                                    <button class="edit-button" onclick="editProductDetails(2)">Edit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            
+                <div class="contact-us">
+                    <h2 class="admin-line">Contact Us</h2>
+                    <table id="contact-us-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Message</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Sajee</td>
+                                <td>Sajeepan634@gmail.com</td>
+                                <td>hi</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Siva</td>
+                                <td>siva14@gmail.com</td>
+                                <td>hello</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        
+            <div id="edit-user-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeUserModal()">&times;</span>
+                    <h2>Edit User Details</h2>
+                    <form id="edit-user-form">
+                        <input type="hidden" id="edit-user-id">
+                        <div class="form-group">
+                            <label for="edit-user-name">Name:</label>
+                            <input type="text" id="edit-user-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-user-email">Email:</label>
+                            <input type="email" id="edit-user-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-user-role">Role:</label>
+                            <select id="edit-user-role">
+                                <option value="User">User</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                        </div>
+                        <button type="submit">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        
+            <div id="edit-product-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeProductModal()">&times;</span>
+                    <h2>Edit Product Details</h2>
+                    <form id="edit-product-form">
+                        <input type="hidden" id="edit-product-id">
+                        <div class="form-group">
+                            <label for="edit-product-name">Product Name:</label>
+                            <input type="text" id="edit-product-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-product-price">Price:</label>
+                            <input type="number" id="edit-product-price" required>
+                        </div>
+                        <button type="submit">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+
+            <footer>
+                <p>&copy; 2024 Infine Selections. All Rights Reserved.</p>
+            </footer>
+        </section>
+    </main>
+    
+
+    <script>
+        function mainShow(sectionId) {
+            const sections = document.querySelectorAll("main > section");
+            sections.forEach(section => {
+                section.classList.remove("active");
+            });
+            document.getElementById(sectionId).classList.add("active");
+        }
+
+        function ViewSection(sectionId) {
+            const sections = document.querySelectorAll("#withoutlogin > section");
+            sections.forEach(section => {
+                section.classList.remove("active");
+            });
+            document.getElementById(sectionId).classList.add("active");
+        }
+
+        function showLoginSection(sectionId) {
+            const sections = document.querySelectorAll("#withlogin > section");
+            sections.forEach(section => {
+                section.classList.remove("active");
+            });
+            document.getElementById(sectionId).classList.add("active");
+        }
+
+        const products = [
+            {
+                name: "Boy Outfits",
+                price: "$19.99",
+                image: "https://i.pinimg.com/736x/c3/e2/56/c3e256fa54b68174bddba10e03535af5.jpg",
+            },
+            {
+                name: "Kids Formal Wear",
+                price: "$29.99",
+                image: "https://i.pinimg.com/564x/80/f1/89/80f189bb8ad5104b19d8ccaef3add951.jpg",
+            },
+            {
+                name: "Gray Linen Outfit",
+                price: "$39.99",
+                image: "https://i.pinimg.com/736x/a1/e0/3e/a1e03ede5bad349e29630c639f07cb7a.jpg",
+            },
+            {
+                name: "Stylish Summer",
+                price: "$24.99",
+                image: "https://i.pinimg.com/736x/fa/c2/3e/fac23e7bbff7e3454dfb74fe2162372f.jpg",
+            },
+            {
+                name: "Cape Cod Collegiate",
+                price: "$15.99",
+                image: "https://i.pinimg.com/564x/ba/8c/52/ba8c52a0aa865a6c57994228009c7c78.jpg",
+            },
+            {
+                name: "Kids Ethnic Wear",
+                price: "$34.99",
+                image: "https://i.pinimg.com/736x/6b/25/19/6b25191a16ed889980a1fd4100028b9d.jpg",
+            },
+        ];
+
+
+        function displayFeaturedProducts() {
+            const productList = document.getElementById("product-list-guest");
+            products.forEach((product) => {
+                const productDiv = document.createElement("div");
+                productDiv.classList.add("product");
+                productDiv.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p class="price">${product.price}</p>
+                `;
+                productList.appendChild(productDiv);
+            });
+        }
+
+        function displayFeaturedProductsInLogin() {
+            const productList = document.getElementById("product-list");
+            products.forEach((product) => {
+                const productDiv = document.createElement("div");
+                productDiv.classList.add("product");
+                productDiv.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p class="price">${product.price}</p>
+                `;
+                productList.appendChild(productDiv);
+            });
+        }
+
+        document.getElementById("newsletter-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const email = document.getElementById("email").value;
+            alert(`Thank you for subscribing with ${email}!`);
+            document.getElementById("newsletter-form").reset();
+        });
+
+        displayFeaturedProducts();
+        displayFeaturedProductsInLogin();
+
+        let cart = [];
+
+        function displayProductsguest() {
+            const productList = document.getElementById("all-products-list-guest");
+            products.forEach((product, index) => {
+                const productDiv = document.createElement("div");
+                productDiv.classList.add("product");
+                productDiv.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p class="price">${product.price}</p>
+                    <button onclick="ViewSection('login')">Add to Cart</button>
+                `;
+                productList.appendChild(productDiv);
+            });
+        }
+
+        function displayProducts() {
+            const productList = document.getElementById("all-products-list");
+            products.forEach((product, index) => {
+                const productDiv = document.createElement("div");
+                productDiv.classList.add("product");
+                productDiv.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p class="price">${product.price}</p>
+                    <button onclick="addToCart(${index})">Add to Cart</button>
+                `;
+                productList.appendChild(productDiv);
+            });
+        }
+
+        function displayCartItems() {
+            const cartItemsContainer = document.getElementById("cart-items");
+            const totalPriceContainer = document.getElementById("total-price");
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((product) => {
+                const productRow = document.createElement("tr");
+                productRow.innerHTML = `
+                    <td><img src="${product.image}" alt="${product.name}" style="width: 50px; height: auto;"></td>
+                    <td>${product.name}</td>
+                    <td class="price">${product.price}</td>
+                `;
+                cartItemsContainer.appendChild(productRow);
+
+                const priceValue = parseFloat(product.price.replace('$', '')); // Remove dollar sign and parse
+                total += priceValue;
+            });
+
+            totalPriceContainer.textContent = total.toFixed(2);
+        }
+
+        function addToCart(productIndex) {
+            const product = products[productIndex];
+            cart.push(product);
+            updateCartCount();
+            displayCartItems();
+            alert(`${product.name} has been added to your cart!`);
+        }
+
+        function updateCartCount() {
+            const cartCount = document.getElementById("cart-count");
+            const Count = document.getElementById("cart-count-bottom");
+            Count.textContent = `${cart.length}`;
+            cartCount.textContent = `Cart (${cart.length})`;
+        }
+
+        displayProductsguest();
+        displayProducts();
+
+        document.getElementById("contact-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+
+            alert(`Thank you for contacting us, ${name}! We will get back to you soon.`);
+            document.getElementById("contact-form").reset();
+        });
+
+        document.getElementById("login-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            const validCredentials = {
+                'sajee': '1234',
+                'banu': '1234'
+            };
+
+            if (validCredentials[username] === password) {
+                alert(`Welcome back, ${username}!`);
+                document.getElementById("login-form").reset();
+                mainShow('withlogin'); 
+            } else if (username == 'admin' && password == 'admin') {
+                alert(`Welcome back, admin!`);
+                document.getElementById("login-form").reset();
+                mainShow('admin-page'); 
+            } else {
+                alert('Invalid login!');
+            }
+        });
+
+        document.getElementById("toggle-password").addEventListener("click", function() {
+            const passwordField = document.getElementById("password");
+            const isPasswordVisible = passwordField.type === "text";
+            passwordField.type = isPasswordVisible ? "password" : "text";
+            this.textContent = isPasswordVisible ? "Show" : "Hide";
+        });
+
+        document.getElementById("register-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const fullname = document.getElementById("fullname").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            alert(`Welcome, ${fullname}! Your account has been created.`);
+            document.getElementById("register-form").reset();
+        });
+
+        function editUserDetails(id) {
+            const userDetails = {
+                1: { name: 'John Doe', email: 'john@example.com', role: 'User' },
+                2: { name: 'Jane Smith', email: 'jane@example.com', role: 'Admin' },
+            };
+
+            document.getElementById('edit-user-id').value = id;
+            document.getElementById('edit-user-name').value = userDetails[id].name;
+            document.getElementById('edit-user-email').value = userDetails[id].email;
+            document.getElementById('edit-user-role').value = userDetails[id].role;
+
+            document.getElementById('edit-user-modal').style.display = 'block';
+        }
+
+        function closeUserModal() {
+            document.getElementById('edit-user-modal').style.display = 'none';
+        }
+
+        document.getElementById('edit-user-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const id = document.getElementById('edit-user-id').value;
+            const name = document.getElementById('edit-user-name').value;
+            const email = document.getElementById('edit-user-email').value;
+            const role = document.getElementById('edit-user-role').value;
+
+            alert(`User details updated for ID ${id}: Name: ${name}, Email: ${email}, Role: ${role}`);
+            closeUserModal();
+        });
+
+        function openProductModal() {
+            document.getElementById('edit-product-id').value = '';
+            document.getElementById('edit-product-name').value = '';
+            document.getElementById('edit-product-price').value = '';
+            document.getElementById('edit-product-modal').style.display = 'block';
+        }
+
+        function editProductDetails(id) {
+            const productDetails = {
+                1: { name: 'Product A', price: 10.00 },
+                2: { name: 'Product B', price: 15.00 },
+            };
+
+            document.getElementById('edit-product-id').value = id;
+            document.getElementById('edit-product-name').value = productDetails[id].name;
+            document.getElementById('edit-product-price').value = productDetails[id].price;
+
+            document.getElementById('edit-product-modal').style.display = 'block';
+        }
+
+        function closeProductModal() {
+            document.getElementById('edit-product-modal').style.display = 'none';
+        }
+
+        document.getElementById('edit-product-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const id = document.getElementById('edit-product-id').value;
+            const name = document.getElementById('edit-product-name').value;
+            const price = document.getElementById('edit-product-price').value;
+
+            alert(`Product details updated for ID ${id}: Name: ${name}, Price: $${price}`);
+            closeProductModal();
+        });
+
+
+        function logout() {
+            alert("You have been logged out.");
+        }
+    </script>
+</body>
+</html>
